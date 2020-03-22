@@ -1,19 +1,32 @@
-import React from 'react'
-import PetShop from './PetShop'
+import React, { useRef, useEffect, useState } from 'react'
 
-function App () {
+function App() {
+  const inputRef = useRef()
+  const count = useRef(1)
+  const [_, setValue] = useState(false)
+
   const handleClick = () => {
-    console.log('Iniciando o banho...')
+    inputRef.current.focus()
+    console.log('inputRef.current', inputRef.current)
   }
-  
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log('passou aqui')
+      count.current = 300
+      setValue(true)
+    }, 3000)
+  })
+
   return (
-    <PetShop
-      dogs={2}
-      customerName="Bruno Carneiro"
-      onClick={handleClick}
-      status="done"
-    />
+    <>
+      <h1>Valor de count: {count.current}</h1>
+      Foco: <input ref={inputRef} />
+      <br />
+      <br />
+      <br />
+      <button onClick={handleClick}>Focar</button>
+    </>
   )
 }
-
 export default App
